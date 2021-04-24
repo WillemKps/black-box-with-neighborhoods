@@ -144,6 +144,7 @@ public class Main {
     	
     	threadmyBlackbox2.removeAllNeighborhoods();
     	
+    	System.out.print("Imade a change");
     	System.out.println();
     	System.out.println();
     	System.out.println();
