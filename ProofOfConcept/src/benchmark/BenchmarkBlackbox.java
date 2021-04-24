@@ -22,7 +22,6 @@ public class BenchmarkBlackbox implements Blackbox {
 	int amountGetCost = 0;
 	int amountConstructRandomSolution = 0;
 	int amountConstructAllDelta = 0;
-	List<String> arrayListCurrentSol = new ArrayList<>();
 	
 	public BenchmarkBlackbox(int ID) {
 		int _n = 0;
@@ -66,7 +65,6 @@ public class BenchmarkBlackbox implements Blackbox {
 		float res = this.testWmodel.applyAsInt(boolArray);
 		
 		this.amountGetCost++;
-		this.arrayListCurrentSol.add(String.valueOf((int) res));
 		return res;
 	}
 
@@ -135,9 +133,7 @@ public class BenchmarkBlackbox implements Blackbox {
 		}
 		float res = this.testWmodel.applyAsInt(toChange);
 		
-		this.amountGetCostWithNeighbor++;
-		this.arrayListCurrentSol.add(String.valueOf((int) res));
-		
+		this.amountGetCostWithNeighbor++;		
 		return res;
 	}
 	
@@ -211,10 +207,6 @@ public class BenchmarkBlackbox implements Blackbox {
 			
 			public int getCandidateSolutionLength() {
 				return testWmodel.get_candidate_solution_length();
-			}
-			
-			public List<String> getArrayListCurrentSol() {
-				return this.arrayListCurrentSol;
 			}
 
 			public int getAmountGetCostWithNeighbor() {

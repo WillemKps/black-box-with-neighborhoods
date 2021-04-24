@@ -53,6 +53,19 @@ public class Main {
     		System.out.print(result + " ");
     	}
     	
+    	float[] res5 = RunBasicImprovementsTests.runOneBenchmarkCycle();
+    	
+
+    	float[] res6 = RunBasicImprovementsTests.runOneBenchmarkCycle();
+    	
+    	for(float result:res5) {
+    		System.out.print(result + " ");
+    	}
+    	System.out.println();
+    	for(float result:res6) {
+    		System.out.print(result + " ");
+    	}
+    	
     	/*
     	Blackbox myBlackbox = new WmodelBlackbox();
     	Solution bestWithSimAnn= simulatedAnnealing(myBlackbox,0);
