@@ -11,7 +11,6 @@ import java.util.Random;
 import blackbox.Blackbox;
 import blackbox.Delta;
 import blackbox.Solution;
-import blackbox.Blackbox.constructDeltaInterface;
 import cn.edu.hfuu.iao.WModel.WModel_SingleObjective_Boolean;
 
 public class BenchmarkBlackbox implements Blackbox {

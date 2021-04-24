@@ -15,13 +15,21 @@ public class TabuSearchRoli implements Runnable {
 	Blackbox myBlackbox;
 	int neighborhood1;
 	Solution min;
-	int maxIterations = 1000;
-	int lengthTabuList = 50;
+	double maxIterations = 1000;
+	double lengthTabuList = 50;
 	
 	public TabuSearchRoli(Blackbox myBlackbox, int neighborhood1) {
 	    this.myBlackbox = myBlackbox;
 	    this.neighborhood1 = neighborhood1;
 	}
+    public void changeLengthTabuList(double length) {
+    	this.lengthTabuList = length;
+    }
+    
+    public void changeMaxIterations(double iters) {
+    	this.maxIterations = iters;
+    }
+    
 	
 	public Solution returnSolution() {
 		return this.min;
@@ -77,7 +85,7 @@ public class TabuSearchRoli implements Runnable {
         getSolutionFromNeighborInterface neighborhood1SolutionFromNeighbor = myBlackbox.arrayListSolutionFromNeighbor.get(neighborhood1);
         constructAllDeltasInterface neighborhood1allNeighbor = myBlackbox.arrayListConstructAllNeighbors.get(neighborhood1);
         getCostWithNeighborInterface getCostWithNeighborInterface = this.myBlackbox.arrayListCostWithNeighbor.get(neighborhood1);
-        int iterationsLeft = this.maxIterations;
+        double iterationsLeft = this.maxIterations;
         
         //Generate initial solution
         Solution min = myBlackbox.constructRandomSolution();
