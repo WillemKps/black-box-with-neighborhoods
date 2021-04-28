@@ -29,15 +29,15 @@ public class RunSimulatedAnnealingTests {
 		}
 		return benchmarkProblems;
 	}
-	public static List<SimulatedAnnealingRoli> makeAllRunnableClasses(List<BenchmarkBlackbox> benchmarkProblems, double initialTemperature, double coolingFactor) {
+	public static List<SimulatedAnnealingRoli> makeAllRunnableClasses(int neighborhood, List<BenchmarkBlackbox> benchmarkProblems, double initialTemperature, double coolingFactor) {
 		List<SimulatedAnnealingRoli> runnables = new ArrayList<SimulatedAnnealingRoli>();
 		int counter = 0;
 		for(BenchmarkBlackbox blackbox:benchmarkProblems) {
-	    	SimulatedAnnealingRoli runnable = new SimulatedAnnealingRoli(blackbox, counter);
+	    	SimulatedAnnealingRoli runnable = new SimulatedAnnealingRoli(blackbox, counter + neighborhood);
+	    	counter = counter + blackbox.getAmountOfNeighborhoodsAdded();
 	    	runnable.changeCoolingFactor(coolingFactor);
 	    	runnable.changeTemperature(initialTemperature);
 	    	runnables.add(runnable);
-	    	counter++;
 		}
 		return runnables;
 	}
@@ -62,22 +62,22 @@ public class RunSimulatedAnnealingTests {
 		for(SimulatedAnnealingRoli runnable:runnables) {
 			float bestRes = (benchmarkProblems.get(counter - 1)).getCost(runnable.returnSolution());
 			bestResults[counter-1] = bestRes;
-			System.out.println("Cost of the best solution for benchmark problem " + counter + ": " + bestRes);
+			//System.out.println("Cost of the best solution for benchmark problem " + counter + ": " + bestRes);
 			printAllBenchmarkRequests(benchmarkProblems.get(counter - 1));
-			System.out.println();
+			//System.out.println();
 			counter++;
 		}
 		return bestResults;
 	}
 	
-	public static float[] runOneBenchmarkCycle(double initialTemperature, double coolingFactor) throws InterruptedException {
+	public static float[] runOneBenchmarkCycle(int neighborhood, double initialTemperature, double coolingFactor) throws InterruptedException {
     	long startTime = System.currentTimeMillis();
 		List<BenchmarkBlackbox> benchmarks = makeAllBenchmarkProblems();
-		List<SimulatedAnnealingRoli> runnables = makeAllRunnableClasses(benchmarks, initialTemperature, coolingFactor);
+		List<SimulatedAnnealingRoli> runnables = makeAllRunnableClasses(neighborhood, benchmarks, initialTemperature, coolingFactor);
 		List<Thread> threads = makeAllThreadClasses(runnables);
 		float[]  res = runAllThreads(threads, benchmarks, runnables);
     	long endTime = System.currentTimeMillis();
-    	System.out.println("Running the algorithm on the 19 benchmark instances took " + (endTime - startTime) + " milliseconds");
+    	System.out.println("Running simmulated annealing on the 19 benchmark instances took " + (endTime - startTime) + " milliseconds");
     	benchmarks.get(0).removeAllNeighborhoods();
     	return res;
 	}

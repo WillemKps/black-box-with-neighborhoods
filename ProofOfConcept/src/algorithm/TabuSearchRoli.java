@@ -15,7 +15,7 @@ public class TabuSearchRoli implements Runnable {
 	Blackbox myBlackbox;
 	int neighborhood1;
 	Solution min;
-	double maxIterations = 1000;
+	double maxIterations = 100;
 	double lengthTabuList = 50;
 	
 	public TabuSearchRoli(Blackbox myBlackbox, int neighborhood1) {
@@ -92,6 +92,7 @@ public class TabuSearchRoli implements Runnable {
         float minCost = myBlackbox.getCost(min);
         Solution currentSolution = min;
         float curCost = minCost;
+        // System.out.println("The start cost: " + curCost);
         //initiate empty tabu list
         List<Solution> tabuList = new ArrayList<>();
 
@@ -118,6 +119,7 @@ public class TabuSearchRoli implements Runnable {
 			    		minIndex = i;
 			    	}
 			    }
+		        //System.out.println("The mnimum cost: " + minimum + " at itertions left: " + iterationsLeft);
 				//check if in tabu list if not add it and take it as newSolution
 				newSolution = neighborhood1SolutionFromNeighbor.getSolutionFromNeighbor(currentSolution, candidateNeighbors.get(minIndex));
 				if (notInTabuList(tabuList, newSolution)) {
@@ -125,6 +127,7 @@ public class TabuSearchRoli implements Runnable {
 					break;
 				}
 				else {
+			        //System.out.println("removed an element");
 					f = removeElementFromArray(f, minIndex);
 					candidateNeighbors.remove(minIndex);
 					newSolution = null;
@@ -135,6 +138,7 @@ public class TabuSearchRoli implements Runnable {
 			//update the tabulist
 			if(newSolution != null) {
 				this.updateTabuList(tabuList, newSolution);
+				//this.printTabuList(tabuList);
 				currentSolution = newSolution;
 			}
 			else {
@@ -144,6 +148,10 @@ public class TabuSearchRoli implements Runnable {
 			if (newCost < minCost) {
 				min = newSolution;
 				minCost = newCost;
+		        //System.out.println("The best cost was updated: " + newCost + "at itertions left: " + iterationsLeft);
+		        
+
+				
 			}
 			
 			iterationsLeft--;
@@ -151,6 +159,12 @@ public class TabuSearchRoli implements Runnable {
 		return min;
 	}
 
+	private void printTabuList(List<Solution> tabuList) {
+		for(Solution sol:tabuList) {
+			System.out.println(sol.toString());
+		}
+		System.out.println();
+	}
 	@Override
 	public void run() {
 		Solution res = this.tabuSearch(this.myBlackbox, this.neighborhood1);

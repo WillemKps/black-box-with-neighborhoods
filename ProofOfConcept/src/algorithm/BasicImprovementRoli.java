@@ -42,7 +42,6 @@ public class BasicImprovementRoli implements Runnable {
 			//search for the first improvement
 			while(candidateNeighbors.size() != 0) {
 				int randomIndex = (int) Math.floor(Math.random()*(candidateNeighbors.size()));
-				//check if in tabu list if not add it and take it as newSolution
 				float potentialCost = getCostWithNeighborInterface.getCostWithNeighbor(currentSolution, candidateNeighbors.get(randomIndex), curCost);
 				if (potentialCost < curCost) {
 					curCost = potentialCost;
