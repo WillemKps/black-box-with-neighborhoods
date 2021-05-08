@@ -8,6 +8,7 @@ import blackbox.Solution;
 import blackbox.Blackbox.constructAllDeltasInterface;
 import blackbox.Blackbox.getCostWithNeighborInterface;
 import blackbox.Blackbox.getSolutionFromNeighborInterface;
+import specialNeighborhood.SpecialNeighborhoodBlackbox;
 
 public class BasicImprovementRoli implements Runnable {
 
@@ -34,6 +35,8 @@ public class BasicImprovementRoli implements Runnable {
         
         //Generate initial solution
         Solution currentSolution = myBlackbox.constructRandomSolution();
+        //Solution currentSolution = ((SpecialNeighborhoodBlackbox) myBlackbox).constructSolution10100();
+
         float curCost = myBlackbox.getCost(currentSolution);
 
 		while (true) {

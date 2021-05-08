@@ -7,6 +7,7 @@ import benchmark.BenchmarkBlackbox;
 import blackbox.Blackbox;
 import blackbox.Delta;
 import blackbox.Solution;
+import specialNeighborhood.SpecialNeighborhoodBlackbox;
 import blackbox.Blackbox.constructAllDeltasInterface;
 import blackbox.Blackbox.constructDeltaInterface;
 import blackbox.Blackbox.getCostWithNeighborInterface;
@@ -62,6 +63,7 @@ public class VariableNeighborhoodSearchRoli implements Runnable {
 		getCostWithNeighborInterface LSgetCostWithNeighbor = myBlackbox.arrayListCostWithNeighbor.get(localSearchNeighborhood);
 
         //Generate initial solution
+		//Solution currentSolution = ((SpecialNeighborhoodBlackbox) myBlackbox).constructSolution10100();
         Solution currentSolution = myBlackbox.constructRandomSolution();
         float currCost = myBlackbox.getCost(currentSolution);
         double iterationsLeft = this.maxIters;

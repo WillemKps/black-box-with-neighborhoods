@@ -6,6 +6,7 @@ import java.util.List;
 import blackbox.Blackbox;
 import blackbox.Delta;
 import blackbox.Solution;
+import specialNeighborhood.SpecialNeighborhoodBlackbox;
 import blackbox.Blackbox.constructAllDeltasInterface;
 import blackbox.Blackbox.getCostWithNeighborInterface;
 import blackbox.Blackbox.getSolutionFromNeighborInterface;
@@ -88,7 +89,8 @@ public class TabuSearchRoli implements Runnable {
         double iterationsLeft = this.maxIterations;
         
         //Generate initial solution
-        Solution min = myBlackbox.constructRandomSolution();
+        //Solution min = myBlackbox.constructRandomSolution();
+        Solution min = ((SpecialNeighborhoodBlackbox) myBlackbox).constructSolution10100();
         float minCost = myBlackbox.getCost(min);
         Solution currentSolution = min;
         float curCost = minCost;
@@ -117,7 +119,7 @@ public class TabuSearchRoli implements Runnable {
 			    	if(minimum > f[i]) {
 			    		minimum = f[i];
 			    		minIndex = i;
-			    	}
+			    	}  
 			    }
 		        //System.out.println("The mnimum cost: " + minimum + " at itertions left: " + iterationsLeft);
 				//check if in tabu list if not add it and take it as newSolution
@@ -138,7 +140,6 @@ public class TabuSearchRoli implements Runnable {
 			//update the tabulist
 			if(newSolution != null) {
 				this.updateTabuList(tabuList, newSolution);
-				//this.printTabuList(tabuList);
 				currentSolution = newSolution;
 			}
 			else {
